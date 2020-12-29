@@ -59,4 +59,9 @@ public class MetabaseMySqlCreateTableSqlGenerator extends AbstractSqlGenerator<C
     public ValidationErrors validate(CreateTableStatement statement, Database database, SqlGeneratorChain sqlGeneratorChain) {
         return this.parentGenerator.validate(statement, database, sqlGeneratorChain);
     }
+
+
+    public static void main(String[] args) {
+        System.out.println(1);
+    }
 }

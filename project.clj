@@ -154,7 +154,7 @@
                                  honeysql]]
    [weavejester/dependency "0.2.1"]                                   ; Dependency graphs and topological sorting
    ]
-
+  :repositories [["clojars" "https://mirrors.tuna.tsinghua.edu.cn/clojars/"]]
   :main ^:skip-aot metabase.core
 
   ;; Liquibase uses this manifest parameter to dynamically find extensions at startup (via classpath scanning, etc)
@@ -437,3 +437,4 @@
    {:aliases      ^:replace  {"run" ["run"]}
     :main         ^:skip-aot metabase.cmd.compare-h2-dbs
     :source-paths ["test"]}})
+

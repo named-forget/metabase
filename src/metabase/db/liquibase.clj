@@ -11,7 +11,8 @@
            liquibase.exception.LockException
            liquibase.resource.ClassLoaderResourceAccessor
            liquibase.sqlgenerator.SqlGeneratorFactory
-           metabase.db.liquibase.MetabaseMySqlCreateTableSqlGenerator))
+           metabase.db.liquibase.MetabaseMySqlCreateTableSqlGenerator
+           ))
 
 (.register (SqlGeneratorFactory/getInstance) (MetabaseMySqlCreateTableSqlGenerator.))
 
