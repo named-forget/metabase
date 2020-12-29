@@ -195,9 +195,10 @@
 
   (extend (class PulseCard)
     tt/WithTempDefaults
-    {:with-temp-defaults (fn [_] {:position    0
-                                  :include_csv false
-                                  :include_xls false})})
+    {:with-temp-defaults (fn [_] {:position          0
+                                  :include_csv       false
+                                  :include_xls       false
+                                  :dashboard_card_id nil})})
 
   (extend (class PulseChannel)
     tt/WithTempDefaults
@@ -295,9 +296,8 @@
 
 
 (defn mappify
-  "Walk COLL and convert all record types to plain Clojure maps.
-  Useful because expectations will consider an instance of a record type to be different from a plain Clojure map,
-  even if all keys & values are the same."
+  "Walk `coll` and convert all record types to plain Clojure maps. Useful because expectations will consider an instance
+  of a record type to be different from a plain Clojure map, even if all keys & values are the same."
   [coll]
   {:style/indent 0}
   (walk/postwalk (fn [x]

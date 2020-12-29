@@ -3,10 +3,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import cx from "classnames";
-import { t } from "ttag";
 
-import Icon from "metabase/components/Icon";
-import Tooltip from "metabase/components/Tooltip";
 import ModalWithTrigger from "metabase/components/ModalWithTrigger";
 
 import EmbedModalContent from "metabase/public/components/widgets/EmbedModalContent";
@@ -32,36 +29,43 @@ const mapDispatchToProps = {
   null,
   mapDispatchToProps,
 )
-export default class DashboardEmbedWidget extends Component {
+export default class DashboardSharingEmbeddingModal extends Component {
   _modal: ?ModalWithTrigger;
 
   render() {
     const {
+      additionalClickActions,
       className,
-      dashboard,
       createPublicLink,
+      dashboard,
       deletePublicLink,
+      enabled,
+      linkClassNames,
+      linkText,
       updateEnableEmbedding,
       updateEmbeddingParams,
       ...props
     } = this.props;
+    if (!enabled) {
+      return null;
+    }
     return (
       <ModalWithTrigger
         ref={m => (this._modal = m)}
         full
         triggerElement={
-          <Tooltip tooltip={t`Sharing and embedding`}>
-            <Icon
-              onClick={() =>
-                MetabaseAnalytics.trackEvent(
-                  "Sharing / Embedding",
-                  "dashboard",
-                  "Sharing Link Clicked",
-                )
-              }
-              name="share"
-            />
-          </Tooltip>
+          <a
+            className={linkClassNames}
+            onClick={() => {
+              MetabaseAnalytics.trackEvent(
+                "Sharing / Embedding",
+                "dashboard",
+                "Sharing Link Clicked",
+              );
+            }}
+          >
+            {linkText}
+          </a>
         }
         triggerClasses={cx(className, "text-brand-hover")}
         className="scroll-y"
@@ -82,6 +86,7 @@ export default class DashboardEmbedWidget extends Component {
           }
           onClose={() => {
             this._modal && this._modal.close();
+            additionalClickActions();
           }}
           getPublicUrl={({ public_uuid }) => Urls.publicDashboard(public_uuid)}
         />
