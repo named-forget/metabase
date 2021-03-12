@@ -1,8 +1,6 @@
 #!/bin/bash
 
 #################################################################
-# 作者：Dylan <1214966109@qq.com>
-# 时间：2018-03-29
 # 用途：Metabase 启动管理
 #################################################################
 if [ -f /etc/init.d/functions ]; then
@@ -20,9 +18,10 @@ export MB_DB_USER=root
 export MB_DB_PASS=Password01
 export MB_DB_HOST=localhost
 export MB_DB_CONNECTION_URI="mysql://localhost:3306/metabase?user=root&password=Password01&useSSL=false"
+export MB_JETTY_PORT=3001
 SERVICE_NAME='metabase'
 SERVICE_PACKAGE="${SERVICE_NAME}.jar"
-SERVICE_PATH='/share/metabase'
+SERVICE_PATH='/root/metabase/target/uberjar/'
 LOG_PATH="${SERVICE_PATH}/logs"
 JAVA_CMD='java'
 
@@ -40,7 +39,7 @@ fi
 #################################################################
 function START_COMMAND()
 {
-    ${JAVA_CMD} -Duser.timezone=Asia/Shanghai -Xms4g -Xmx4g -jar ${SERVICE_PATH}/${SERVICE_PACKAGE} >> ${LOG_PATH}/${SERVICE_NAME}.log &
+    ${JAVA_CMD} -jar ${SERVICE_PATH}/${SERVICE_PACKAGE} >> ${LOG_PATH}/${SERVICE_NAME}.log &
     if [[ $? -eq 0 ]]; then
         action "${SERVICE_NAME} start successed" /bin/true
     else
