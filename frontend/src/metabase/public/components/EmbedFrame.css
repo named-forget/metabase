@@ -1,5 +1,6 @@
 .EmbedFrame {
   background-color: white;
+  border: none;
 }
 
 .EmbedFrame-header,
