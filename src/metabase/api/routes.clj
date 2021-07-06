@@ -48,6 +48,7 @@
              [auth :as middleware.auth]
              [exceptions :as middleware.exceptions]]
             [metabase.plugins.classloader :as classloader]
+            [goldenstand.test :as test]
             [metabase.util.i18n :refer [deferred-tru]]))
 
 (u/ignore-exceptions (classloader/require '[metabase-enterprise.sandbox.api.routes :as ee.sandbox.routes]))
@@ -114,5 +115,6 @@
   (context "/tiles"                       [] (+auth tiles/routes))
   (context "/transform"                   [] (+auth transform/routes))
   (context "/user"                        [] (+auth user/routes))
+  (context "/test"                        [] test/routes)
   (context "/util"                        [] util/routes)
   (route/not-found (constantly {:status 404, :body (deferred-tru "API endpoint does not exist.")})))
